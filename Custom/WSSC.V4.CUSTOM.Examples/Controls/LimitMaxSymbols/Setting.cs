@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
+using WSSC.V4.CUSTOM.Examples;
 using WSSC.V4.SYS.DBFramework;
 
 namespace WSSC.V4.DMS.SLD.Controls.LimitMaxSymbols

@@ -64,7 +64,7 @@ namespace WSSC.V4.DMS.SLD.Controls.LimitMaxSymbols
         /// </summary>
         protected override void OnListFormInit()
         {
-            this.AppContext.ScriptManager.RegisterResource(@"Controls\LimitMaxSymbols\SLD_LimitMaxSymbols.js", VersionProvider.ModulePath);
+            this.AppContext.ScriptManager.RegisterResource(@"Controls\LimitMaxSymbols\SLD_LimitMaxSymbols.js", CUSTOM.Examples.VersionProvider.ModulePath);
 
             //Проверям каждое полученное поле на тип, является он текстовым или нет + наличие его в списке
             List<string> wrongFields = new List<string>();
@@ -94,7 +94,10 @@ namespace WSSC.V4.DMS.SLD.Controls.LimitMaxSymbols
             [DataMember]
             Dictionary<string, int> FieldsInfo { get; set; }
 
-            public JSInstanceObject(Dictionary<string, int> fieldsInfo) => this.FieldsInfo = fieldsInfo;
+            public JSInstanceObject(Dictionary<string, int> fieldsInfo)
+            {
+                this.FieldsInfo = fieldsInfo;
+            }
         }
 
         protected override object CreateClientInstance()

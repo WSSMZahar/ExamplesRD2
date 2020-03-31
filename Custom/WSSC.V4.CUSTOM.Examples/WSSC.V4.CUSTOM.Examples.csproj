@@ -46,6 +46,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
@@ -55,8 +57,13 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>S:\Разработка\DMS\ZMazyrin\tfs2019\2.WSSDocs\RD3\System\WSSC.V4.SYS.Fields\WSSC.V4.SYS.Fields.MultiLineText\Release\WSSC.V4.SYS.Fields.MultiLineText.dll</HintPath>
     </Reference>
+    <Reference Include="WSSC.V4.SYS.Fields.Text, Version=4.0.0.0, Culture=neutral, PublicKeyToken=9f4da00116c38ec5, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>S:\Разработка\DMS\ZMazyrin\tfs2019\2.WSSDocs\RD3\System\WSSC.V4.SYS.Fields\WSSC.V4.SYS.Fields.Text\Release\WSSC.V4.SYS.Fields.Text.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Consts.cs" />
     <Compile Include="Controls\ClearFieldsByChangeField\ClearFieldsByChangeField.cs" />
     <Compile Include="Controls\LimitMaxSymbols\LimitMaxSymbols.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -79,16 +86,22 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Deploy -->
+    <Content Include="Controls\ClearFieldsByChangeField\Readme.txt" />
+    <Content Include="Controls\scr\jquery-ui.min.js" />
+    <Content Include="Controls\scr\jquery.multipleSortable.min.js" />
+    <Content Include="Controls\LimitMaxSymbols\Readme.txt" />
     <Content Include="Deploy\DeployParams.txt" />
     <Content Include="Deploy\Manifest.xml" />
-    <Content Include="Controls\ClearFieldsByChangeField\FOS_ClearFieldsByChangeField.js" />
     <Content Include="Controls\ClearFieldsByChangeField\Setting.xml" />
     <Content Include="Controls\LimitMaxSymbols\Setting.xml" />
-    <Content Include="Controls\LimitMaxSymbols\SLD_LimitMaxSymbols.js" />
     <!-- Release-->
     <Content Include="Types_WSSC.V4.CUSTOM.Examples.xml">
       <SubType>Designer</SubType>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="Controls\ClearFieldsByChangeField\FOS_ClearFieldsByChangeField.ts" />
+    <TypeScriptCompile Include="Controls\LimitMaxSymbols\SLD_LimitMaxSymbols.ts" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
