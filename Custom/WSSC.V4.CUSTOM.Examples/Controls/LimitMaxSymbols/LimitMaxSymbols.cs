@@ -10,54 +10,28 @@ using WSSC.V4.SYS.Fields.Text;
 namespace WSSC.V4.DMS.SLD.Controls.LimitMaxSymbols
 {
     /// <summary>
-    /// Контрол LimitMaxSymbols.
+    /// Контрол устанавливающий ограничение количества символов в полях типа "Однострочный" или "Многострочный" текст.
     /// </summary>
 	public class LimitMaxSymbols : DBListFormWebControl
     {
-        /// <summary>
-        /// Контрол LimitMaxSymbols.
-        /// </summary>
         protected LimitMaxSymbols(DBListFormWebControlMetadata metadata, DBListFormControl listForm)
-            : base(metadata, listForm) { }
+            : base(metadata, listForm) 
+        {
+            Setting = new Setting(this.Item);
+        }
 
-        /// <summary>
-        /// Фабрика для создания контрола.
-        /// </summary>
         protected class Factory : DBListFormWebControlFactory
         {
-            /// <summary>
-            /// Создает экземпляр контрола на форме элемента списка.
-            /// </summary>
-            /// <param name="metadata">Метаданные контрола.</param>
-            /// <param name="listForm">Форма элемента списка.</param>
-            /// <returns/>
             protected override DBListFormWebControl CreateListFormWebControl(DBListFormWebControlMetadata metadata, DBListFormControl listForm)
             {
                 return new LimitMaxSymbols(metadata, listForm);
             }
         }
 
-
-
-        private bool __init_Setting = false;
-        private Setting _Setting;
         /// <summary>
         /// Настройка для текущего списка
         /// </summary>
-        private Setting Setting
-        {
-            get
-            {
-                if (!__init_Setting)
-                {
-                    _Setting = new Setting(this.Item);
-                    __init_Setting = true;
-                }
-                return _Setting;
-            }
-
-        }
-
+        private Setting Setting { get; set; }
 
         /// <summary>
         /// Вызывается при инициализации формы, до инициализации полей.
@@ -68,6 +42,7 @@ namespace WSSC.V4.DMS.SLD.Controls.LimitMaxSymbols
 
             //Проверям каждое полученное поле на тип, является он текстовым или нет + наличие его в списке
             List<string> wrongFields = new List<string>();
+
             foreach (KeyValuePair<string, int> key in this.Setting.FieldsInfo)
             {
                 DBField field = this.Item.List.GetField(key.Key, true);
@@ -85,7 +60,6 @@ namespace WSSC.V4.DMS.SLD.Controls.LimitMaxSymbols
         {
             get => "SLD_LimitMaxSymbols_Init";
         }
-
 
         //Создаём options в js содержащий основное поле и макс его длину
         [DataContract]
@@ -109,6 +83,5 @@ namespace WSSC.V4.DMS.SLD.Controls.LimitMaxSymbols
         {
             get => "SLD_LimitMaxSymbols_JSObject";
         }
-
     }
 }

@@ -4,38 +4,28 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using WSSC.V4.SYS.DBFramework;
+using System.Xml.Linq;
 
 namespace WSSC.V4.DMS.FOS.Controls.ClearFieldsByChangeField
 {
     /// <summary>
-    /// Контрол Очищение нескольких полей при изменении ключевого поля.
+    /// Очищение нескольких полей при изменении ключевого поля.
     /// </summary>
 	public class ClearFieldsByChangeField : DBListFormWebControl
     {
-
         protected ClearFieldsByChangeField(DBListFormWebControlMetadata metadata, DBListFormControl listForm)
             : base(metadata, listForm) { }
 
-        /// <summary>
-        /// Фабрика для создания контрола.
-        /// </summary>
         protected class Factory : DBListFormWebControlFactory
         {
-            /// <summary>
-            /// Создает экземпляр контрола на форме элемента списка.
-            /// </summary>
-            /// <param name="metadata">Метаданные контрола.</param>
-            /// <param name="listForm">Форма элемента списка.</param>
-            /// <returns/>
             protected override DBListFormWebControl CreateListFormWebControl(DBListFormWebControlMetadata metadata, DBListFormControl listForm)
             {
                 return new ClearFieldsByChangeField(metadata, listForm);
             }
         }
 
-
-        private bool __init_Fields = false;
         private KeyValuePair<string, string[]> _Fields;
+        private bool __init_Fields = false;
         /// <summary>
         /// Key - основное поле, Value - зависящие поля
         /// </summary>
@@ -45,16 +35,21 @@ namespace WSSC.V4.DMS.FOS.Controls.ClearFieldsByChangeField
             {
                 if (!__init_Fields)
                 {
-                    Setting setting = new Setting(this.Item);
-                    _Fields = setting.FieldsAddiction.First();
+                    _Fields = this.GetFieldAddition();
                     __init_Fields = true;
                 }
                 return _Fields;
             }
-
         }
 
-
+        private KeyValuePair<string, string[]> GetFieldAddition()
+        {
+            Setting setting = new Setting(this.Item);
+            XDocument doc = setting.GetXmlSetting();
+            List<XElement> listsSetting = setting.GetListsSetting(doc);
+            XElement currentListSetting = setting.GetCurrentListSetting(listsSetting);
+            return setting.GetFieldAddition(currentListSetting).First();
+        }
 
         protected override void OnListFormInitCompleted()
         {

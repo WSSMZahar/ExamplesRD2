@@ -5,7 +5,7 @@
         public class ConfigParams
         {
             public const string LimitMaxSymbols = "SLD.LimitMaxSymbols";
-            public const string ClearFieldsByChangeField = @"FOS_ ClearFieldsByChangeField";
+            public const string ClearFieldsByChangeField = "FOS.ClearFieldsByChangeField";
         }
     }
 }

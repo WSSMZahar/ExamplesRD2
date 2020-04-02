@@ -27,31 +27,43 @@ function FOS_ClearFieldsByChangeField_Init()
     } 
 }
 
-//обработчик полей
-function FOS_ClearFieldsByChangeField_Handler() {
-    var childs = FOS_ClearFieldsByChangeField_JSObject.ChildFields;
-    for (var i = 0; i < childs.length; i++) {
+class SetFieldsValue {
+    childs: Array<string>;
 
-        var child = ListForm.GetField(childs[i]);
-        var value = child.GetValue();
+    SetValue(): void {
+        for (var i = 0; i < this.childs.length; i++) {
 
-        switch (child.Type) {
-            //поля подстановки
-            case 'DBFieldLookupSingle':
-                if (value != "" && value != null)
-                    child.SetValue();
-                break;
+            var child = ListForm.GetField(this.childs[i]);
+            var value = child.GetValue();
 
-            case 'DBFieldLookupMulti':
-                if (value.length > 0)
-                    child.SetValue();
-                break;
+            switch (child.Type) {
+                //поля подстановки
+                case 'DBFieldLookupSingle':
+                    if (value != "" && value != null)
+                        child.SetValue();
+                    break;
 
-            //остальные поля
-            default:
-                if (value != "" && value != null)
-                    child.SetValue();
-                break;
+                case 'DBFieldLookupMulti':
+                    if (value.length > 0)
+                        child.SetValue();
+                    break;
+
+                //остальные поля
+                default:
+                    if (value != "" && value != null)
+                        child.SetValue();
+                    break;
+            }
         }
     }
+
+    constructor(Childs: Array<string>) {
+        this.childs = Childs;
+    }
+}
+
+//обработчик полей
+function FOS_ClearFieldsByChangeField_Handler() {
+    var fieldValue: SetFieldsValue = new SetFieldsValue(FOS_ClearFieldsByChangeField_JSObject.ChildFields);
+    fieldValue.SetValue();
 }
