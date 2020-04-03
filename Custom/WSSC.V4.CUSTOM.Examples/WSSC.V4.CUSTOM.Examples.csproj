@@ -101,6 +101,7 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Controls\ClearFieldsByChangeField\FOS_ClearFieldsByChangeField.ts" />
+    <TypeScriptCompile Include="Controls\TypeScript.ts" />
     <TypeScriptCompile Include="Controls\LimitMaxSymbols\SLD_LimitMaxSymbols.ts" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

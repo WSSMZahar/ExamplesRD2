@@ -10,12 +10,12 @@ using WSSC.V4.SYS.Fields.Text;
 namespace WSSC.V4.DMS.SLD.Controls.LimitMaxSymbols
 {
     /// <summary>
-    /// Контрол устанавливающий ограничение количества символов в полях типа "Однострочный" или "Многострочный" текст.
+    /// Устанавливаются ограничение количества символов в полях типа "Однострочный" или "Многострочный" текст.
     /// </summary>
 	public class LimitMaxSymbols : DBListFormWebControl
     {
         protected LimitMaxSymbols(DBListFormWebControlMetadata metadata, DBListFormControl listForm)
-            : base(metadata, listForm) 
+            : base(metadata, listForm)
         {
             Setting = new Setting(this.Item);
         }
@@ -56,32 +56,28 @@ namespace WSSC.V4.DMS.SLD.Controls.LimitMaxSymbols
                 throw new Exception($"Данные поля не являются текстовыми: '{string.Join("; ", wrongFields.ToArray())}'");
         }
 
-        protected override string ClientInitHandler
-        {
-            get => "SLD_LimitMaxSymbols_Init";
-        }
+        protected override string ClientInitHandler => "SLD_LimitMaxSymbols_Init";
 
         //Создаём options в js содержащий основное поле и макс его длину
-        [DataContract]
-        private class JSInstanceObject
-        {
-            [DataMember]
-            Dictionary<string, int> FieldsInfo { get; set; }
-
-            public JSInstanceObject(Dictionary<string, int> fieldsInfo)
-            {
-                this.FieldsInfo = fieldsInfo;
-            }
-        }
 
         protected override object CreateClientInstance()
         {
             return new JSInstanceObject(this.Setting.FieldsInfo);
         }
 
-        protected override string ClientInstanceName
+        protected override string ClientInstanceName => "SLD_LimitMaxSymbols_JSObject";
+    }
+
+    [DataContract]
+    public class JSInstanceObject
+    {
+        [DataMember]
+        Dictionary<string, int> FieldsInfo { get; set; }
+
+        public JSInstanceObject(Dictionary<string, int> fieldsInfo)
         {
-            get => "SLD_LimitMaxSymbols_JSObject";
+            this.FieldsInfo = fieldsInfo;
         }
     }
+
 }

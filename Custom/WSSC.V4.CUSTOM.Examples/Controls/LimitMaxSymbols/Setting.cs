@@ -57,8 +57,8 @@ namespace WSSC.V4.DMS.SLD.Controls.LimitMaxSymbols
         /// <summary>
         /// Название поля : макс символов
         /// </summary>
-         private Dictionary<string, int> GetFieldsInfo(IEnumerable<XElement> elements)
-         {
+        private Dictionary<string, int> GetFieldsInfo(IEnumerable<XElement> elements)
+        {
             return elements.ToDictionary(el =>
                 {
                     string fieldname = el.Attribute("name")?.Value;
@@ -79,6 +79,6 @@ namespace WSSC.V4.DMS.SLD.Controls.LimitMaxSymbols
                     return max;
                 }
                 );
-         }
+        }
     }
 }

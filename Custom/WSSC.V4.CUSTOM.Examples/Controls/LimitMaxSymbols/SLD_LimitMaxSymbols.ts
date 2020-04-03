@@ -1,32 +1,50 @@
-﻿declare var ListForm: any;
-declare var SLD_LimitMaxSymbols_JSObject: any;
+﻿declare var ListForm: FormClass;
+
+declare var SLD_LimitMaxSymbols_JSObject: JSInstanceObject;
 /**JQuery */
 declare var $: any;
 
 function SLD_LimitMaxSymbols_Init() {
-    var fieldsInfo = SLD_LimitMaxSymbols_JSObject.FieldsInfo
-    for (var index = 0; index < fieldsInfo.length; index++) {
-        var fieldname = fieldsInfo[index].Key;
-        var maxchars = fieldsInfo[index].Value;
+    var maxSymbols = new MaxSymbols();
+    maxSymbols.ChekMaxSymbols(SLD_LimitMaxSymbols_JSObject.FieldsInfo);
+}
 
-        var field = ListForm.GetField(fieldname, true);
-        var containerFieldID = field.ContainerID;
-        var typedField = field.TypedField;
+class JSInstanceObject {
+    public readonly FieldsInfo: JSFieldInfo[];
+}
 
-        if (typedField == null)
-            throw new Error('Не удалось получить типизированное поле для ' + fieldname);
+class JSFieldInfo {
+    public readonly Key: string;
+    public readonly Value: number;
+}
 
+class MaxSymbols {
+    ChekMaxSymbols(fieldsInfo: JSFieldInfo[]): void {
+        for (var index = 0; index < fieldsInfo.length; index++) {
+            var fieldname = fieldsInfo[index].Key;
+            var maxchars = fieldsInfo[index].Value;
+
+            var field = ListForm.GetField(fieldname, true);
+
+            if (field.TypedField == null)
+                throw new Error('Не удалось получить типизированное поле для ' + fieldname);
+
+            this.GetTypeField(field, fieldname, maxchars);
+        }
+    }
+
+    GetTypeField(field: DBField, fieldName: string, maxChars: number): void {
         switch (field.Type) {
             case 'DBFieldText':
-                $('#' + containerFieldID).find('#' + typedField.ContainerID).find('.txt_input').attr('maxlength', maxchars);
+                $('#' + field.ContainerID).find('#' + field.TypedField.ContainerID).find('.txt_input').attr('maxlength', maxChars);
                 break;
 
             case 'DBFieldMultiLineText':
-                $('#' + containerFieldID).find('#' + typedField.ControlID).attr('maxlength', maxchars);
+                $('#' + field.ContainerID).find('#' + field.TypedField.ControlID).attr('maxlength', maxChars);
                 break;
 
             default:
-                throw new Error('Поле ' + fieldname + ' не поддерживается');
+                throw new Error('Поле ' + fieldName + ' не поддерживается');
         }
     }
 }

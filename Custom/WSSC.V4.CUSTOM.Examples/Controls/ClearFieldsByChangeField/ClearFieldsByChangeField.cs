@@ -57,10 +57,7 @@ namespace WSSC.V4.DMS.FOS.Controls.ClearFieldsByChangeField
             this.AppContext.ScriptManager.RegisterResource(@"Controls\ClearFieldsByChangeField\FOS_ClearFieldsByChangeField.js", VersionProvider.ModulePath);
         }
 
-        protected override string ClientInitHandler
-        {
-            get => "FOS_ClearFieldsByChangeField_Init";
-        }
+        protected override string ClientInitHandler => "FOS_ClearFieldsByChangeField_Init";
 
         //Создаём options в js содержащий основное поле и зависимые
         [DataContract]
@@ -84,9 +81,6 @@ namespace WSSC.V4.DMS.FOS.Controls.ClearFieldsByChangeField
             return new JSInstanceObject(this.Fields.Key, this.Fields.Value);
         }
 
-        protected override string ClientInstanceName
-        {
-            get => "FOS_ClearFieldsByChangeField_JSObject";
-        }
+        protected override string ClientInstanceName => "FOS_ClearFieldsByChangeField_JSObject";
     }
 }

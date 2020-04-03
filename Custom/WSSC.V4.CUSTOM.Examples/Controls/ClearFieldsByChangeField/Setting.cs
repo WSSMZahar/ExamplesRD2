@@ -10,13 +10,14 @@ namespace WSSC.V4.DMS.FOS.Controls.ClearFieldsByChangeField
 {
     public class Setting
     {
-        private DBItem Item { get; set; }
-        public Setting(DBItem item) => this.Item = item ?? throw new Exception("Не удалось получить карточку (DBItem = null)");
+        private readonly DBItem Item;
+        public Setting(DBItem item) => this.Item = item
+            ?? throw new Exception("Не удалось получить карточку.");
 
         public XDocument GetXmlSetting()
         {
             return this.Item.Site.ConfigParams.GetXDocument(Consts.ConfigParams.ClearFieldsByChangeField)
-                   ?? throw new Exception($"Не удалось получить настройку '{Consts.ConfigParams.ClearFieldsByChangeField}'");          
+                   ?? throw new Exception($"Не удалось получить настройку '{Consts.ConfigParams.ClearFieldsByChangeField}'");
         }
 
         public List<XElement> GetListsSetting(XDocument xDoc)
