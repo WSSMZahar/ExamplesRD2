@@ -28,19 +28,13 @@ namespace WSSC.V4.DMS.FOS
         /// </summary>
         protected override void OnListFormInitCompleted()
         {
-            this.AppContext.ScriptManager.RegisterResource("Controls/SetFieldController/SetFieldController.js", VersionProvider.ModulePath);
+            this.AppContext.ScriptManager.RegisterResource("Controls/SetFieldController/SetFieldController.js", CUSTOM.Examples.VersionProvider.ModulePath);
             this.AddFieldChangeHandler(Consts.SetFieldControllerHandler.ControllerFieldName, "FOS_SetFieldController");            
         }
 
         /// <summary>
         /// Событие открытия формы
         /// </summary>
-        protected override string ClientInitHandler
-        {
-            get
-            {
-                return "FOS_SetFieldController_Init";
-            }
-        }
+        protected override string ClientInitHandler => "FOS_SetFieldController_Init";
     }
 }

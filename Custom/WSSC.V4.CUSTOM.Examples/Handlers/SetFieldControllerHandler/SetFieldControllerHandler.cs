@@ -13,11 +13,10 @@ namespace WSSC.V4.DMS.FOS
         public SetFieldControllerHandler(DBItemHandlerDefinition handlerDefinition, DBList list)
             : base(handlerDefinition, list) { }
 
-    
         protected override void OnBeforeItemUpdate(DBItemOperation operationProperties)
         {
             if (operationProperties == null)
-                return;                             
+                return;
 
             DBItem item = operationProperties.Item;
             if (item == null)
@@ -29,14 +28,13 @@ namespace WSSC.V4.DMS.FOS
 
             bool onController = item.GetValue<bool>(Consts.SetFieldControllerHandler.OnСontrollerFieldName);
             DBFieldLookupValue controller = item.GetLookupValue(Consts.SetFieldControllerHandler.ControllerFieldName);
-            bool value = controller == null ? false : true;
+            bool isHaveValue = controller != null;
 
             //Если "Контролер" пусто и  "На контроле" false заново ставить false не нужно, с true аналогично
-            if (!value && !onController || (value && onController))
+            if (!isHaveValue && !onController || (isHaveValue && onController))
                 return;
 
-            item.SetValue(Consts.SetFieldControllerHandler.OnСontrollerFieldName, value);
-           
+            item.SetValue(Consts.SetFieldControllerHandler.OnСontrollerFieldName, isHaveValue);
         }
     }
 }

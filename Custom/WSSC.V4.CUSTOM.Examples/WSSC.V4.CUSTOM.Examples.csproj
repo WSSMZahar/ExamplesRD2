@@ -52,7 +52,14 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="WSSC.V4.SYS.DBFramework,Version=4.0.0.0,Culture=neutral,PublicKeyToken=9f4da00116c38ec5" />
+    <Reference Include="WSSC.V4.SYS.DBFramework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=9f4da00116c38ec5, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>S:\Разработка\DMS\ZMazyrin\tfs2019\2.WSSDocs\ECP3\Source\System\WSSC.V4.SYS.DBFramework\WSSC.V4.SYS.DBFramework\Release\WSSC.V4.SYS.DBFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="WSSC.V4.SYS.Fields.Lookup, Version=4.0.0.0, Culture=neutral, PublicKeyToken=9f4da00116c38ec5, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Program Files\WSS\Текущая версия - 2019.07.04\R - WSSC.V4.SYS.Fields.Lookup\WSSC.V4.SYS.Fields.Lookup.dll</HintPath>
+    </Reference>
     <Reference Include="WSSC.V4.SYS.Fields.MultiLineText, Version=4.0.0.0, Culture=neutral, PublicKeyToken=9f4da00116c38ec5, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>S:\Разработка\DMS\ZMazyrin\tfs2019\2.WSSDocs\RD3\System\WSSC.V4.SYS.Fields\WSSC.V4.SYS.Fields.MultiLineText\Release\WSSC.V4.SYS.Fields.MultiLineText.dll</HintPath>
@@ -63,6 +70,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Consts.cs" />
+    <Compile Include="Controls\SetFieldController\SetFieldController.cs" />
+    <Compile Include="Handlers\SetFieldControllerHandler\SetFieldControllerHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\VersionProvider.cs" />
   </ItemGroup>
@@ -87,6 +97,10 @@
     <Content Include="Types_WSSC.V4.CUSTOM.Examples.xml">
       <SubType>Designer</SubType>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="Controls\SetFieldController\SetFieldController.ts" />
+    <TypeScriptCompile Include="TypeScript.ts" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
