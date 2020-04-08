@@ -28,8 +28,8 @@ namespace WSSC.V4.DMS.FOS
         /// </summary>
         protected override void OnListFormInitCompleted()
         {
-            this.AppContext.ScriptManager.RegisterResource("Controls/SetFieldController/SetFieldController.js", CUSTOM.Examples.VersionProvider.ModulePath);
-            this.AddFieldChangeHandler(Consts.SetFieldControllerHandler.ControllerFieldName, "FOS_SetFieldController");            
+            AppContext.ScriptManager.RegisterResource("Controls/SetFieldController/SetFieldController.js", CUSTOM.Examples.VersionProvider.ModulePath);
+            AddFieldChangeHandler(Consts.SetFieldControllerHandler.ControllerFieldName, "FOS_SetFieldController");            
         }
 
         /// <summary>

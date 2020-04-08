@@ -81,11 +81,6 @@
     <None Include="Deploy\setup.bat" />
     <None Include="Deploy\uninstall.bat" />
     <!-- Release-->
-    <None Include="Release\WSSC.V4.CUSTOM.Examples.log" />
-    <None Include="Release\WSSC.V4.CUSTOM.Examples.wsp" />
-    <None Include="Release\WSSC.V4.CUSTOM.Examples.dll" />
-    <None Include="Release\WSSC.V4.CUSTOM.Examples.pdb" />
-    <None Include="Release\WSSC.V4.CUSTOM.Examples.xml" />
     <!-- Properties-->
     <None Include="Properties\Key.snk" />
   </ItemGroup>
@@ -100,7 +95,7 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Controls\SetFieldController\SetFieldController.ts" />
-    <TypeScriptCompile Include="TypeScript.ts" />
+    <TypeScriptCompile Include="TypeScript\TypeScript.ts" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

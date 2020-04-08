@@ -23,18 +23,18 @@ namespace WSSC.V4.DMS.FOS
                 return;
 
             //только при создании
-            if (!item.ContextCreated)
+            if (!item.IsNew && !item.ContextCreated)
                 return;
 
             bool onController = item.GetValue<bool>(Consts.SetFieldControllerHandler.OnСontrollerFieldName);
             DBFieldLookupValue controller = item.GetLookupValue(Consts.SetFieldControllerHandler.ControllerFieldName);
-            bool isHaveValue = controller != null;
+            bool haveValue = controller != null;
 
             //Если "Контролер" пусто и  "На контроле" false заново ставить false не нужно, с true аналогично
-            if (!isHaveValue && !onController || (isHaveValue && onController))
+            if (!haveValue && !onController || (haveValue && onController))
                 return;
 
-            item.SetValue(Consts.SetFieldControllerHandler.OnСontrollerFieldName, isHaveValue);
+            item.SetValue(Consts.SetFieldControllerHandler.OnСontrollerFieldName, haveValue);
         }
     }
 }
