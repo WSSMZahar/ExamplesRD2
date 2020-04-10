@@ -86,6 +86,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Deploy -->
+    <Content Include="Controls\SetFieldController\Readme.txt" />
     <Content Include="Deploy\DeployParams.txt" />
     <Content Include="Deploy\Manifest.xml" />
     <!-- Release-->

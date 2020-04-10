@@ -2,11 +2,11 @@
 var FOS_OnControlFieldName = "На контроле";
 
 function FOS_SetFieldController() {
-    var controller: DBField = ListForm.GetField(FOS_ControllerFieldName, true);
+    var controller = ListForm.GetField(FOS_ControllerFieldName, true);
     if (controller == null)
         return;
 
-    var onControl: DBField = ListForm.GetField(FOS_OnControlFieldName, true);
+    var onControl = ListForm.GetField(FOS_OnControlFieldName, true);
     if (onControl == null)
         return;
 
