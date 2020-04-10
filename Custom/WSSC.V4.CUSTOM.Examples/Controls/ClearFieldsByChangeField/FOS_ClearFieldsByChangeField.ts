@@ -5,7 +5,7 @@
 
 function FOS_ClearFieldsByChangeField_Init() {
     //Проверка поля
-    var mainField: DBField = ListForm.GetField(FOS_ClearFieldsByChangeField_JSObject.MainField);
+    var mainField = ListForm.GetField(FOS_ClearFieldsByChangeField_JSObject.MainField);
     if (mainField == null)
         throw new Error('Не найдено поле ' + FOS_ClearFieldsByChangeField_JSObject.MainField);
 
@@ -19,7 +19,7 @@ class SetFieldsValue {
     SetFieldValue(): void {
         for (var i = 0; i < this.childs.length; i++) {
 
-            var child: DBField = ListForm.GetField(this.childs[i], true);
+            var child = ListForm.GetField(this.childs[i], true);
             var value = child.GetValue();
 
             switch (child.Type) {

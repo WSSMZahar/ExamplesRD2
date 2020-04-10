@@ -13,7 +13,7 @@ namespace WSSC.V4.DMS.SLD.Controls.LimitMaxSymbols
         private XDocument _Xml;
         public Setting(DBItem item)
         {
-            _Item = item ?? throw new Exception($"В настройку '{this.GetType().FullName}' не передана карточка");
+            _Item = item ?? throw new Exception($"В настройку '{GetType().FullName}' не передана карточка");
 
             _Xml = _Item.Site.ConfigParams.GetXDocument(Consts.ConfigParams.LimitMaxSymbols)
                 ?? throw new Exception($"Не удалось получить настройку из константы '{Consts.ConfigParams.LimitMaxSymbols}'");
@@ -33,7 +33,7 @@ namespace WSSC.V4.DMS.SLD.Controls.LimitMaxSymbols
             return xDoc.Element("Settings")?
                 .Elements("Setting")
                 .FirstOrDefault(IsCurrentSettingsList)
-                    ?? throw new Exception($"В настройке '{Consts.ConfigParams.LimitMaxSymbols}' для списка '{this._Item.List.Name}' не удалось найти xml-узел");
+                    ?? throw new Exception($"В настройке '{Consts.ConfigParams.LimitMaxSymbols}' для списка '{_Item.List.Name}' не удалось найти xml-узел");
         }
 
         private bool IsCurrentSettingsList(XElement el)

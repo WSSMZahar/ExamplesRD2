@@ -76,11 +76,6 @@
     <None Include="Deploy\setup.bat" />
     <None Include="Deploy\uninstall.bat" />
     <!-- Release-->
-    <None Include="Release\WSSC.V4.CUSTOM.Examples.log" />
-    <None Include="Release\WSSC.V4.CUSTOM.Examples.wsp" />
-    <None Include="Release\WSSC.V4.CUSTOM.Examples.dll" />
-    <None Include="Release\WSSC.V4.CUSTOM.Examples.pdb" />
-    <None Include="Release\WSSC.V4.CUSTOM.Examples.xml" />
     <!-- Properties-->
     <None Include="Properties\Key.snk" />
   </ItemGroup>
@@ -101,7 +96,7 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Controls\ClearFieldsByChangeField\FOS_ClearFieldsByChangeField.ts" />
-    <TypeScriptCompile Include="Controls\TypeScript.ts" />
+    <TypeScriptCompile Include="TypeScript\TypeScript.ts" />
     <TypeScriptCompile Include="Controls\LimitMaxSymbols\SLD_LimitMaxSymbols.ts" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

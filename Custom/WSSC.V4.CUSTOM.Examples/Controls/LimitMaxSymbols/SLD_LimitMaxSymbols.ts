@@ -33,7 +33,7 @@ class MaxSymbols {
         }
     }
 
-    GetTypeField(field: DBField, fieldName: string, maxChars: number): void {
+    GetTypeField(field, fieldName: string, maxChars: number): void {
         switch (field.Type) {
             case 'DBFieldText':
                 $('#' + field.ContainerID).find('#' + field.TypedField.ContainerID).find('.txt_input').attr('maxlength', maxChars);

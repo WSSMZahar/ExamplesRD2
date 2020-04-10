@@ -11,12 +11,12 @@ namespace WSSC.V4.DMS.FOS.Controls.ClearFieldsByChangeField
     public class Setting
     {
         private readonly DBItem Item;
-        public Setting(DBItem item) => this.Item = item
+        public Setting(DBItem item) => Item = item
             ?? throw new Exception("Не удалось получить карточку.");
 
         public XDocument GetXmlSetting()
         {
-            return this.Item.Site.ConfigParams.GetXDocument(Consts.ConfigParams.ClearFieldsByChangeField)
+            return Item.Site.ConfigParams.GetXDocument(Consts.ConfigParams.ClearFieldsByChangeField)
                    ?? throw new Exception($"Не удалось получить настройку '{Consts.ConfigParams.ClearFieldsByChangeField}'");
         }
 
@@ -32,18 +32,18 @@ namespace WSSC.V4.DMS.FOS.Controls.ClearFieldsByChangeField
         {
             IEnumerable<XElement> fields = elements.FirstOrDefault(IsCurrentListSettings)
                 ?.Elements("Field")
-                ?? throw new Exception($"Для списка '{this.Item.List.Name}' не найдена или некорректная настройка");
+                ?? throw new Exception($"Для списка '{Item.List.Name}' не найдена или некорректная настройка");
 
             if (fields.ToList().Count > 1)
-                throw new Exception($"Для списка '{this.Item.List.Name}' указано несколько xml-узлов Field, а должен быть только один");
+                throw new Exception($"Для списка '{Item.List.Name}' указано несколько xml-узлов Field, а должен быть только один");
             return fields.First();
         }
 
         private bool IsCurrentListSettings(XElement el)
         {
-            return string.Equals(el.Attribute("name")?.Value, this.Item.List.Name, StringComparison.OrdinalIgnoreCase)
+            return string.Equals(el.Attribute("name")?.Value, Item.List.Name, StringComparison.OrdinalIgnoreCase)
                 && string.Equals(el.Attribute("web")?.Value?.Trim('/'),
-                this.Item.List.Web.RelativeUrl.Trim('/'), StringComparison.OrdinalIgnoreCase);
+                Item.List.Web.RelativeUrl.Trim('/'), StringComparison.OrdinalIgnoreCase);
         }
 
         /// <summary>

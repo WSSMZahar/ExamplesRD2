@@ -35,7 +35,7 @@ namespace WSSC.V4.DMS.FOS.Controls.ClearFieldsByChangeField
             {
                 if (!__init_Fields)
                 {
-                    _Fields = this.GetFieldAddition();
+                    _Fields = GetFieldAddition();
                     __init_Fields = true;
                 }
                 return _Fields;
@@ -44,7 +44,7 @@ namespace WSSC.V4.DMS.FOS.Controls.ClearFieldsByChangeField
 
         private KeyValuePair<string, string[]> GetFieldAddition()
         {
-            Setting setting = new Setting(this.Item);
+            Setting setting = new Setting(Item);
             XDocument doc = setting.GetXmlSetting();
             List<XElement> listsSetting = setting.GetListsSetting(doc);
             XElement currentListSetting = setting.GetCurrentListSetting(listsSetting);
@@ -53,8 +53,8 @@ namespace WSSC.V4.DMS.FOS.Controls.ClearFieldsByChangeField
 
         protected override void OnListFormInitCompleted()
         {
-            this.AddFieldChangeHandler(this.Fields.Key, "FOS_ClearFieldsByChangeField_Handler");
-            this.AppContext.ScriptManager.RegisterResource(@"Controls\ClearFieldsByChangeField\FOS_ClearFieldsByChangeField.js", VersionProvider.ModulePath);
+            AddFieldChangeHandler(Fields.Key, "FOS_ClearFieldsByChangeField_Handler");
+            AppContext.ScriptManager.RegisterResource(@"Controls\ClearFieldsByChangeField\FOS_ClearFieldsByChangeField.js", VersionProvider.ModulePath);
         }
 
         protected override string ClientInitHandler => "FOS_ClearFieldsByChangeField_Init";
@@ -71,14 +71,14 @@ namespace WSSC.V4.DMS.FOS.Controls.ClearFieldsByChangeField
 
             public JSInstanceObject(string mainField, string[] childFields)
             {
-                this.MainField = mainField;
-                this.ChildFields = childFields;
+                MainField = mainField;
+                ChildFields = childFields;
             }
         }
 
         protected override object CreateClientInstance()
         {
-            return new JSInstanceObject(this.Fields.Key, this.Fields.Value);
+            return new JSInstanceObject(Fields.Key, Fields.Value);
         }
 
         protected override string ClientInstanceName => "FOS_ClearFieldsByChangeField_JSObject";

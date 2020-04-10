@@ -17,7 +17,7 @@ namespace WSSC.V4.DMS.SLD.Controls.LimitMaxSymbols
         protected LimitMaxSymbols(DBListFormWebControlMetadata metadata, DBListFormControl listForm)
             : base(metadata, listForm)
         {
-            Setting = new Setting(this.Item);
+            Setting = new Setting(Item);
         }
 
         protected class Factory : DBListFormWebControlFactory
@@ -62,7 +62,7 @@ namespace WSSC.V4.DMS.SLD.Controls.LimitMaxSymbols
 
         protected override object CreateClientInstance()
         {
-            return new JSInstanceObject(this.Setting.FieldsInfo);
+            return new JSInstanceObject(Setting.FieldsInfo);
         }
 
         protected override string ClientInstanceName => "SLD_LimitMaxSymbols_JSObject";
@@ -76,7 +76,7 @@ namespace WSSC.V4.DMS.SLD.Controls.LimitMaxSymbols
 
         public JSInstanceObject(Dictionary<string, int> fieldsInfo)
         {
-            this.FieldsInfo = fieldsInfo;
+            FieldsInfo = fieldsInfo;
         }
     }
 
