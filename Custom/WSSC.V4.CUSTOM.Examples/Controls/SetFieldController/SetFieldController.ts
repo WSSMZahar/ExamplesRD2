@@ -1,5 +1,5 @@
-﻿var FOS_ControllerFieldName = "Контролер";
-var FOS_OnControlFieldName = "На контроле";
+﻿FOS_ControllerFieldName = "Контролер";
+FOS_OnControlFieldName = "На контроле";
 
 function FOS_SetFieldController() {
     var controller = ListForm.GetField(FOS_ControllerFieldName, true);

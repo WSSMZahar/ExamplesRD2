@@ -96,6 +96,7 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Controls\SetFieldController\SetFieldController.ts" />
+    <TypeScriptCompile Include="TypeScript\TypeScript.d.ts" />
     <TypeScriptCompile Include="TypeScript\TypeScript.ts" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -15,4 +15,3 @@ function FOS_SetFieldController() {
 function FOS_SetFieldController_Init() {
     FOS_SetFieldController();
 }
-//# sourceMappingURL=SetFieldController.js.map

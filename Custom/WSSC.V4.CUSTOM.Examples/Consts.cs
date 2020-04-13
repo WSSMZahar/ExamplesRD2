@@ -9,16 +9,8 @@ namespace WSSC.V4.CUSTOM.Examples
     {
         public class SetFieldControllerHandler
         {
-            /// <summary>
-            /// поле "Контролер"
-            /// </summary>
             public const string ControllerFieldName = "Контролер";
-
-            /// <summary>
-            /// поле "На контроле"
-            /// </summary>
             public const string OnСontrollerFieldName = "На контроле";
-
         }
     }
 }

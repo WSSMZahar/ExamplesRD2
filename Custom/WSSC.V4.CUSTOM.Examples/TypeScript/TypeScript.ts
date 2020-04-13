@@ -1,10 +1,10 @@
-﻿declare var ListForm: FormClass;
+﻿declare var ListForm: IListForm;
 
-interface FormClass {
+interface IListForm {
     GetField(fieldName: string);
-    GetField(fieldName: string, isNull: boolean);
+    GetField(fieldName: string, throwNotFoundException: boolean);
 }
 
-class LookupValue {
+interface LookupValue {
     LookupID: number;
 }

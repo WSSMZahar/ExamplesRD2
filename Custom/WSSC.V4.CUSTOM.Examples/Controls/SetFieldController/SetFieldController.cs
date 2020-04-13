@@ -23,13 +23,18 @@ namespace WSSC.V4.DMS.FOS
             }
         }
 
+
+
         /// <summary>
         /// Добавление обработчиков на поля
         /// </summary>
         protected override void OnListFormInitCompleted()
         {
-            AppContext.ScriptManager.RegisterResource("Controls/SetFieldController/SetFieldController.js", CUSTOM.Examples.VersionProvider.ModulePath);
-            AddFieldChangeHandler(Consts.SetFieldControllerHandler.ControllerFieldName, "FOS_SetFieldController");            
+            if (!Item.IsNew && !Item.ContextCreated)
+            {
+                AppContext.ScriptManager.RegisterResource("Controls/SetFieldController/SetFieldController.js", CUSTOM.Examples.VersionProvider.ModulePath);
+                AddFieldChangeHandler(Consts.SetFieldControllerHandler.ControllerFieldName, "FOS_SetFieldController");
+            }        
         }
 
         /// <summary>
