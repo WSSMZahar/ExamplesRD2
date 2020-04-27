@@ -5,21 +5,21 @@
 
 function FOS_ClearFieldsByChangeField_Init() {
     //Проверка поля
-    var mainField = ListForm.GetField(FOS_ClearFieldsByChangeField_JSObject.MainField);
+    var mainField: IField = ListForm.GetField(FOS_ClearFieldsByChangeField_JSObject.MainField);
     if (mainField == null)
-        throw new Error('Не найдено поле ' + FOS_ClearFieldsByChangeField_JSObject.MainField);
+        throw new Error(`Не найдено поле ${FOS_ClearFieldsByChangeField_JSObject.MainField}`);
 
     var fieldValue = new SetFieldsValue(FOS_ClearFieldsByChangeField_JSObject.ChildFields);
     fieldValue.CheckField();
 }
 
 class SetFieldsValue {
-    childs: Array<string>;
+    private _childs: Array<string>;
 
-    SetFieldValue(): void {
-        for (var i = 0; i < this.childs.length; i++) {
+    public SetFieldValue(): void {
+        for (var i = 0; i < this._childs.length; i++) {
 
-            var child = ListForm.GetField(this.childs[i], true);
+            var child = ListForm.GetField(this._childs[i], true);
             var value = child.GetValue();
 
             switch (child.Type) {
@@ -43,27 +43,27 @@ class SetFieldsValue {
         }
     }
 
-    CheckField(): void {
+    public CheckField(): void {
         //не поддерживаемые поля
         var notSupportedFields: string[] = ['MSLField', 'DBFieldMarkup', 'PDField', 'CMField', 'PField', 'DBFieldFiles', 'DBFieldFileLink', 'DBFieldLink', 'WSSC.V4.DMS.Fields.TableItems.TableItemsField'];
 
         //Проверка полей
 
-        for (var i = 0; i < this.childs.length; i++) {
-            var child = ListForm.GetField(this.childs[i], true);
+        for (var i = 0; i < this._childs.length; i++) {
+            var child = ListForm.GetField(this._childs[i], true);
 
             if (notSupportedFields.indexOf(child.Type) != -1)
-                throw new Error('Тип поля ' + child.Type + ' не поддерживается');
+                throw new Error(`Тип поля ${child.Type} не поддерживается`);
         }
     }
 
-    constructor(Childs: Array<string>) {
-        this.childs = Childs;
+    public constructor(Childs: Array<string>) {
+        this._childs = Childs;
     }
 }
 
 //обработчик полей
 function FOS_ClearFieldsByChangeField_Handler() {
-    var fieldValue = new SetFieldsValue(FOS_ClearFieldsByChangeField_JSObject.ChildFields);
+    var fieldValue: SetFieldsValue = new SetFieldsValue(FOS_ClearFieldsByChangeField_JSObject.ChildFields);
     fieldValue.SetFieldValue();
 }

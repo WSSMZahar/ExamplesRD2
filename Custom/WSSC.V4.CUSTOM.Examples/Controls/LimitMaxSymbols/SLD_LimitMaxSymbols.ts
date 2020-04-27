@@ -1,11 +1,11 @@
-﻿declare var ListForm: FormClass;
+﻿declare var ListForm: IListForm;
 
 declare var SLD_LimitMaxSymbols_JSObject: JSInstanceObject;
 /**JQuery */
 declare var $: any;
 
 function SLD_LimitMaxSymbols_Init() {
-    var maxSymbols = new MaxSymbols();
+    var maxSymbols: MaxSymbols  = new MaxSymbols();
     maxSymbols.ChekMaxSymbols(SLD_LimitMaxSymbols_JSObject.FieldsInfo);
 }
 
@@ -27,7 +27,7 @@ class MaxSymbols {
             var field = ListForm.GetField(fieldname, true);
 
             if (field.TypedField == null)
-                throw new Error('Не удалось получить типизированное поле для ' + fieldname);
+                throw new Error(`Не удалось получить типизированное поле для ${fieldname}`);
 
             this.GetTypeField(field, fieldname, maxchars);
         }
@@ -36,15 +36,15 @@ class MaxSymbols {
     GetTypeField(field, fieldName: string, maxChars: number): void {
         switch (field.Type) {
             case 'DBFieldText':
-                $('#' + field.ContainerID).find('#' + field.TypedField.ContainerID).find('.txt_input').attr('maxlength', maxChars);
+                $(`#${field.ContainerID}`).find(`#${field.TypedField.ContainerID}`).find('.txt_input').attr('maxlength', maxChars);
                 break;
 
             case 'DBFieldMultiLineText':
-                $('#' + field.ContainerID).find('#' + field.TypedField.ControlID).attr('maxlength', maxChars);
+                $(`#${field.ContainerID}`).find(`#${field.TypedField.ControlID}`).attr('maxlength', maxChars);
                 break;
 
             default:
-                throw new Error('Поле ' + fieldName + ' не поддерживается');
+                throw new Error(`Поле ${fieldName} не поддерживается`);
         }
     }
 }

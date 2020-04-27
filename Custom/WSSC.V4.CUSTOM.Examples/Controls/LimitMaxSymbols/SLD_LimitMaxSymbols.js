@@ -21,20 +21,20 @@ var MaxSymbols = /** @class */ (function () {
             var maxchars = fieldsInfo[index].Value;
             var field = ListForm.GetField(fieldname, true);
             if (field.TypedField == null)
-                throw new Error('Не удалось получить типизированное поле для ' + fieldname);
+                throw new Error("\u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u043F\u043E\u043B\u0443\u0447\u0438\u0442\u044C \u0442\u0438\u043F\u0438\u0437\u0438\u0440\u043E\u0432\u0430\u043D\u043D\u043E\u0435 \u043F\u043E\u043B\u0435 \u0434\u043B\u044F " + fieldname);
             this.GetTypeField(field, fieldname, maxchars);
         }
     };
     MaxSymbols.prototype.GetTypeField = function (field, fieldName, maxChars) {
         switch (field.Type) {
             case 'DBFieldText':
-                $('#' + field.ContainerID).find('#' + field.TypedField.ContainerID).find('.txt_input').attr('maxlength', maxChars);
+                $("#" + field.ContainerID).find("#" + field.TypedField.ContainerID).find('.txt_input').attr('maxlength', maxChars);
                 break;
             case 'DBFieldMultiLineText':
-                $('#' + field.ContainerID).find('#' + field.TypedField.ControlID).attr('maxlength', maxChars);
+                $("#" + field.ContainerID).find("#" + field.TypedField.ControlID).attr('maxlength', maxChars);
                 break;
             default:
-                throw new Error('Поле ' + fieldName + ' не поддерживается');
+                throw new Error("\u041F\u043E\u043B\u0435 " + fieldName + " \u043D\u0435 \u043F\u043E\u0434\u0434\u0435\u0440\u0436\u0438\u0432\u0430\u0435\u0442\u0441\u044F");
         }
     };
     return MaxSymbols;

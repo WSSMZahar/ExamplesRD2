@@ -14,7 +14,10 @@ namespace WSSC.V4.DMS.FOS.Controls.ClearFieldsByChangeField
 	public class ClearFieldsByChangeField : DBListFormWebControl
     {
         protected ClearFieldsByChangeField(DBListFormWebControlMetadata metadata, DBListFormControl listForm)
-            : base(metadata, listForm) { }
+            : base(metadata, listForm)
+        {
+            FieldsAddition = GetFieldAddition();
+        }
 
         protected class Factory : DBListFormWebControlFactory
         {
@@ -24,40 +27,33 @@ namespace WSSC.V4.DMS.FOS.Controls.ClearFieldsByChangeField
             }
         }
 
-        private KeyValuePair<string, string[]> _Fields;
-        private bool __init_Fields = false;
-        /// <summary>
-        /// Key - основное поле, Value - зависящие поля
-        /// </summary>
-        public KeyValuePair<string, string[]> Fields
-        {
-            get
-            {
-                if (!__init_Fields)
-                {
-                    _Fields = GetFieldAddition();
-                    __init_Fields = true;
-                }
-                return _Fields;
-            }
-        }
+        public KeyValuePair<string, string[]> FieldsAddition { get; set; }
 
         private KeyValuePair<string, string[]> GetFieldAddition()
         {
             Setting setting = new Setting(Item);
-            XDocument doc = setting.GetXmlSetting();
-            List<XElement> listsSetting = setting.GetListsSetting(doc);
-            XElement currentListSetting = setting.GetCurrentListSetting(listsSetting);
-            return setting.GetFieldAddition(currentListSetting).First();
+            return setting.FieldAddition.First();
         }
 
         protected override void OnListFormInitCompleted()
         {
-            AddFieldChangeHandler(Fields.Key, "FOS_ClearFieldsByChangeField_Handler");
-            AppContext.ScriptManager.RegisterResource(@"Controls\ClearFieldsByChangeField\FOS_ClearFieldsByChangeField.js", VersionProvider.ModulePath);
+            if (!Item.IsNewOrContextCreated)
+            {
+                AddFieldChangeHandler(FieldsAddition.Key, "FOS_ClearFieldsByChangeField_Handler");
+                AppContext.ScriptManager.RegisterResource(@"Controls\ClearFieldsByChangeField\FOS_ClearFieldsByChangeField.js", VersionProvider.ModulePath);
+            }
         }
 
-        protected override string ClientInitHandler => "FOS_ClearFieldsByChangeField_Init";
+        protected override string ClientInitHandler
+        {
+            get
+            {
+                if (!Item.IsNewOrContextCreated)
+                    return "FOS_ClearFieldsByChangeField_Init";
+
+                return null;
+            }
+        }
 
         //Создаём options в js содержащий основное поле и зависимые
         [DataContract]
@@ -78,7 +74,7 @@ namespace WSSC.V4.DMS.FOS.Controls.ClearFieldsByChangeField
 
         protected override object CreateClientInstance()
         {
-            return new JSInstanceObject(Fields.Key, Fields.Value);
+            return new JSInstanceObject(FieldsAddition.Key, FieldsAddition.Value);
         }
 
         protected override string ClientInstanceName => "FOS_ClearFieldsByChangeField_JSObject";

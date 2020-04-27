@@ -1,6 +1,14 @@
-﻿declare var ListForm: FormClass;
+﻿declare var ListForm: IListForm;
 
-interface FormClass {
-    GetField(fieldName: string);
-    GetField(fieldName: string, isNull: boolean);
+interface IListForm {
+    GetField(fieldName: string): IField;
+    GetField(fieldName: string, isNull: boolean): IField;
 }
+
+interface IField {
+    GetValue(): any;
+    SetValue(value: any): any;
+    TypedField: any;
+    Type: any;
+}
+

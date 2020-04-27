@@ -9,13 +9,13 @@ namespace WSSC.V4.DMS.SLD.Controls.LimitMaxSymbols
 {
     public class Setting
     {
-        private DBItem _Item;
+        private DBItem _item;
         private XDocument _Xml;
         public Setting(DBItem item)
         {
-            _Item = item ?? throw new Exception($"В настройку '{GetType().FullName}' не передана карточка");
+            _item = item ?? throw new Exception($"В настройку '{GetType().FullName}' не передана карточка");
 
-            _Xml = _Item.Site.ConfigParams.GetXDocument(Consts.ConfigParams.LimitMaxSymbols)
+            _Xml = _item.Site.ConfigParams.GetXDocument(Consts.ConfigParams.LimitMaxSymbols)
                 ?? throw new Exception($"Не удалось получить настройку из константы '{Consts.ConfigParams.LimitMaxSymbols}'");
 
             XElement listSettings = GetSettingsList(_Xml);
@@ -33,13 +33,13 @@ namespace WSSC.V4.DMS.SLD.Controls.LimitMaxSymbols
             return xDoc.Element("Settings")?
                 .Elements("Setting")
                 .FirstOrDefault(IsCurrentSettingsList)
-                    ?? throw new Exception($"В настройке '{Consts.ConfigParams.LimitMaxSymbols}' для списка '{_Item.List.Name}' не удалось найти xml-узел");
+                    ?? throw new Exception($"В настройке '{Consts.ConfigParams.LimitMaxSymbols}' для списка '{_item.List.Name}' не удалось найти xml-узел");
         }
 
         private bool IsCurrentSettingsList(XElement el)
         {
-            return string.Equals(el.Attribute("listname")?.Value, _Item.List.Name, StringComparison.OrdinalIgnoreCase)
-                && string.Equals(el.Attribute("webname")?.Value?.Trim('/'), _Item.List.Web.RelativeUrl.Trim('/'),
+            return string.Equals(el.Attribute("listname")?.Value, _item.List.Name, StringComparison.OrdinalIgnoreCase)
+                && string.Equals(el.Attribute("webname")?.Value?.Trim('/'), _item.List.Web.RelativeUrl.Trim('/'),
                 StringComparison.OrdinalIgnoreCase);
         }
 
