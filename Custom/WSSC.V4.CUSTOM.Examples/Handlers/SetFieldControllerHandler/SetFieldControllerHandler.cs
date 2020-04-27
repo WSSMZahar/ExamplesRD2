@@ -10,6 +10,9 @@ namespace WSSC.V4.DMS.FOS
 {
     public class SetFieldControllerHandler : DBItemHandler
     {
+        private const string ControllerFieldName = "Контролер";
+        private const string OnСontrollerFieldName = "На контроле";
+
         public SetFieldControllerHandler(DBItemHandlerDefinition handlerDefinition, DBList list)
             : base(handlerDefinition, list) { }
 
@@ -26,15 +29,15 @@ namespace WSSC.V4.DMS.FOS
             if (!item.IsNew && !item.ContextCreated)
                 return;
 
-            bool onController = item.GetValue<bool>(Consts.SetFieldControllerHandler.OnСontrollerFieldName);
-            DBFieldLookupValue controller = item.GetLookupValue(Consts.SetFieldControllerHandler.ControllerFieldName);
+            bool onController = item.GetValue<bool>(OnСontrollerFieldName);
+            DBFieldLookupValue controller = item.GetLookupValue(ControllerFieldName);
             bool haveValue = controller != null;
 
             //Если "Контролер" пусто и  "На контроле" false заново ставить false не нужно, с true аналогично
             if (!haveValue && !onController || (haveValue && onController))
                 return;
 
-            item.SetValue(Consts.SetFieldControllerHandler.OnСontrollerFieldName, haveValue);
+            item.SetValue(OnСontrollerFieldName, haveValue);
         }
     }
 }

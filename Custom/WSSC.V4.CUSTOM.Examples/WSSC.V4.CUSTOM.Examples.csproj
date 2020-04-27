@@ -70,7 +70,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Consts.cs" />
     <Compile Include="Controls\SetFieldController\SetFieldController.cs" />
     <Compile Include="Handlers\SetFieldControllerHandler\SetFieldControllerHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

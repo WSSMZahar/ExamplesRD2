@@ -12,6 +12,8 @@ namespace WSSC.V4.DMS.FOS
     /// </summary>
     public class SetFieldController : DBListFormWebControl
     {
+        private const string ControllerFieldName = "Контролер";
+
         protected SetFieldController(DBListFormWebControlMetadata metadata, DBListFormControl listForm)
             : base(metadata, listForm) { }
 
@@ -23,8 +25,6 @@ namespace WSSC.V4.DMS.FOS
             }
         }
 
-
-
         /// <summary>
         /// Добавление обработчиков на поля
         /// </summary>
@@ -33,13 +33,23 @@ namespace WSSC.V4.DMS.FOS
             if (!Item.IsNew && !Item.ContextCreated)
             {
                 AppContext.ScriptManager.RegisterResource("Controls/SetFieldController/SetFieldController.js", CUSTOM.Examples.VersionProvider.ModulePath);
-                AddFieldChangeHandler(Consts.SetFieldControllerHandler.ControllerFieldName, "FOS_SetFieldController");
-            }        
+                AddFieldChangeHandler(ControllerFieldName, "FOS_SetFieldController");
+            }
         }
 
         /// <summary>
         /// Событие открытия формы
         /// </summary>
-        protected override string ClientInitHandler => "FOS_SetFieldController_Init";
+        protected override string ClientInitHandler
+        {
+            get
+            {
+                if (!Item.IsNew && !Item.ContextCreated)
+                    return "FOS_SetFieldController_Init";
+
+                return null;
+            }
+
+        }
     }
 }
