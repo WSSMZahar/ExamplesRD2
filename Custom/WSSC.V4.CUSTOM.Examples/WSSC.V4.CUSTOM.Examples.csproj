@@ -54,19 +54,7 @@
     <Reference Include="System.Xml" />
     <Reference Include="WSSC.V4.SYS.DBFramework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=9f4da00116c38ec5, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>S:\Разработка\DMS\ZMazyrin\tfs2019\2.WSSDocs\ECP3\Source\System\WSSC.V4.SYS.DBFramework\WSSC.V4.SYS.DBFramework\Release\WSSC.V4.SYS.DBFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="WSSC.V4.SYS.Fields.Lookup, Version=4.0.0.0, Culture=neutral, PublicKeyToken=9f4da00116c38ec5, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\Program Files\WSS\Текущая версия - 2019.07.04\R - WSSC.V4.SYS.Fields.Lookup\WSSC.V4.SYS.Fields.Lookup.dll</HintPath>
-    </Reference>
-    <Reference Include="WSSC.V4.SYS.Fields.MultiLineText, Version=4.0.0.0, Culture=neutral, PublicKeyToken=9f4da00116c38ec5, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>S:\Разработка\DMS\ZMazyrin\tfs2019\2.WSSDocs\RD3\System\WSSC.V4.SYS.Fields\WSSC.V4.SYS.Fields.MultiLineText\Release\WSSC.V4.SYS.Fields.MultiLineText.dll</HintPath>
-    </Reference>
-    <Reference Include="WSSC.V4.SYS.Fields.Text, Version=4.0.0.0, Culture=neutral, PublicKeyToken=9f4da00116c38ec5, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>S:\Разработка\DMS\ZMazyrin\tfs2019\2.WSSDocs\RD3\System\WSSC.V4.SYS.Fields\WSSC.V4.SYS.Fields.Text\Release\WSSC.V4.SYS.Fields.Text.dll</HintPath>
+      <HintPath>S:\Разработка\DMS\ZMazyrin\tfs2019\2.WSSDocs\RD2\System\WSSC.V4.SYS.DBFramework\WSSC.V4.SYS.DBFramework\Release\WSSC.V4.SYS.DBFramework.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

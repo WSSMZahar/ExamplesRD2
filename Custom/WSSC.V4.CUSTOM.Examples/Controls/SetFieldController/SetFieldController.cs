@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
-using WSSC.V4.CUSTOM.Examples;
 using WSSC.V4.SYS.DBFramework;
+using System.Xml.Linq;
 
 namespace WSSC.V4.DMS.FOS
 {
@@ -44,7 +45,7 @@ namespace WSSC.V4.DMS.FOS
         {
             get
             {
-                if (!Item.IsNew && !Item.ContextCreated)
+                if (!Item.IsNewOrContextCreated) 
                     return "FOS_SetFieldController_Init";
 
                 return null;
