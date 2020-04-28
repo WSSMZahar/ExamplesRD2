@@ -8,75 +8,62 @@ using System.Xml.Linq;
 
 namespace WSSC.V4.DMS.FOS.Controls.ClearFieldsByChangeField
 {
-    /// <summary>
-    /// Очищение нескольких полей при изменении ключевого поля.
-    /// </summary>
+	/// <summary>
+	/// Очищение нескольких полей при изменении ключевого поля.
+	/// </summary>
 	public class ClearFieldsByChangeField : DBListFormWebControl
-    {
-        protected ClearFieldsByChangeField(DBListFormWebControlMetadata metadata, DBListFormControl listForm)
-            : base(metadata, listForm)
-        {
-            FieldsAddition = GetFieldAddition();
-        }
+	{
+		protected ClearFieldsByChangeField(DBListFormWebControlMetadata metadata, DBListFormControl listForm)
+			: base(metadata, listForm)
+		{
+			Setting setting = new Setting(Item);
+			FieldsAddition = setting.FieldAddition;
+		}
 
-        protected class Factory : DBListFormWebControlFactory
-        {
-            protected override DBListFormWebControl CreateListFormWebControl(DBListFormWebControlMetadata metadata, DBListFormControl listForm)
-            {
-                return new ClearFieldsByChangeField(metadata, listForm);
-            }
-        }
+		protected class Factory : DBListFormWebControlFactory
+		{
+			protected override DBListFormWebControl CreateListFormWebControl(DBListFormWebControlMetadata metadata, DBListFormControl listForm)
+			{
+				return new ClearFieldsByChangeField(metadata, listForm);
+			}
+		}
 
-        public KeyValuePair<string, string[]> FieldsAddition { get; set; }
+		private KeyValuePair<string, string[]> FieldsAddition { get; set; }
 
-        private KeyValuePair<string, string[]> GetFieldAddition()
-        {
-            Setting setting = new Setting(Item);
-            return setting.FieldAddition.First();
-        }
+		protected override void OnListFormInitCompleted()
+		{
+			if (!Item.IsNewOrContextCreated)
+			{
+				AddFieldChangeHandler(FieldsAddition.Key, "FOS_ClearFieldsByChangeField_Handler");
+				AppContext.ScriptManager.RegisterResource(@"Controls\ClearFieldsByChangeField\FOS_ClearFieldsByChangeField.js", VersionProvider.ModulePath);
+			}
+		}
 
-        protected override void OnListFormInitCompleted()
-        {
-            if (!Item.IsNewOrContextCreated)
-            {
-                AddFieldChangeHandler(FieldsAddition.Key, "FOS_ClearFieldsByChangeField_Handler");
-                AppContext.ScriptManager.RegisterResource(@"Controls\ClearFieldsByChangeField\FOS_ClearFieldsByChangeField.js", VersionProvider.ModulePath);
-            }
-        }
+		protected override string ClientInitHandler
+			=> Item.IsNewOrContextCreated ? null : "FOS_ClearFieldsByChangeField_Init";
 
-        protected override string ClientInitHandler
-        {
-            get
-            {
-                if (!Item.IsNewOrContextCreated)
-                    return "FOS_ClearFieldsByChangeField_Init";
+		//Создаём options в js содержащий основное поле и зависимые
+		[DataContract]
+		private class JSInstanceObject
+		{
+			[DataMember]
+			public string MainField { get; set; }
 
-                return null;
-            }
-        }
+			[DataMember]
+			public string[] ChildFields { get; set; }
 
-        //Создаём options в js содержащий основное поле и зависимые
-        [DataContract]
-        private class JSInstanceObject
-        {
-            [DataMember]
-            public string MainField { get; set; }
+			public JSInstanceObject(string mainField, string[] childFields)
+			{
+				MainField = mainField;
+				ChildFields = childFields;
+			}
+		}
 
-            [DataMember]
-            public string[] ChildFields { get; set; }
+		protected override object CreateClientInstance()
+		{
+			return new JSInstanceObject(FieldsAddition.Key, FieldsAddition.Value);
+		}
 
-            public JSInstanceObject(string mainField, string[] childFields)
-            {
-                MainField = mainField;
-                ChildFields = childFields;
-            }
-        }
-
-        protected override object CreateClientInstance()
-        {
-            return new JSInstanceObject(FieldsAddition.Key, FieldsAddition.Value);
-        }
-
-        protected override string ClientInstanceName => "FOS_ClearFieldsByChangeField_JSObject";
-    }
+		protected override string ClientInstanceName => "FOS_ClearFieldsByChangeField_JSObject";
+	}
 }

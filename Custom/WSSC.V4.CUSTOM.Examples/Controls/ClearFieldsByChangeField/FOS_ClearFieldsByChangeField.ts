@@ -9,18 +9,18 @@ function FOS_ClearFieldsByChangeField_Init() {
     if (mainField == null)
         throw new Error(`Не найдено поле ${FOS_ClearFieldsByChangeField_JSObject.MainField}`);
 
-    var fieldValue = new SetFieldsValue(FOS_ClearFieldsByChangeField_JSObject.ChildFields);
+    var fieldValue: FieldValueSeter = new FieldValueSeter(FOS_ClearFieldsByChangeField_JSObject.ChildFields);
     fieldValue.CheckField();
 }
 
-class SetFieldsValue {
+class FieldValueSeter {
     private _childs: Array<string>;
 
     public SetFieldValue(): void {
         for (var i = 0; i < this._childs.length; i++) {
 
-            var child = ListForm.GetField(this._childs[i], true);
-            var value = child.GetValue();
+            var child: IField = ListForm.GetField(this._childs[i], true);
+            var value: any = child.GetValue();
 
             switch (child.Type) {
                 //поля подстановки
@@ -48,9 +48,8 @@ class SetFieldsValue {
         var notSupportedFields: string[] = ['MSLField', 'DBFieldMarkup', 'PDField', 'CMField', 'PField', 'DBFieldFiles', 'DBFieldFileLink', 'DBFieldLink', 'WSSC.V4.DMS.Fields.TableItems.TableItemsField'];
 
         //Проверка полей
-
         for (var i = 0; i < this._childs.length; i++) {
-            var child = ListForm.GetField(this._childs[i], true);
+            var child: IField = ListForm.GetField(this._childs[i], true);
 
             if (notSupportedFields.indexOf(child.Type) != -1)
                 throw new Error(`Тип поля ${child.Type} не поддерживается`);
@@ -64,6 +63,6 @@ class SetFieldsValue {
 
 //обработчик полей
 function FOS_ClearFieldsByChangeField_Handler() {
-    var fieldValue: SetFieldsValue = new SetFieldsValue(FOS_ClearFieldsByChangeField_JSObject.ChildFields);
+    var fieldValue: FieldValueSeter = new FieldValueSeter(FOS_ClearFieldsByChangeField_JSObject.ChildFields);
     fieldValue.SetFieldValue();
 }

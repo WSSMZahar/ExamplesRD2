@@ -5,7 +5,7 @@ declare var SLD_LimitMaxSymbols_JSObject: JSInstanceObject;
 declare var $: any;
 
 function SLD_LimitMaxSymbols_Init() {
-    var maxSymbols: MaxSymbols  = new MaxSymbols();
+    var maxSymbols: MaxSymbols = new MaxSymbols();
     maxSymbols.ChekMaxSymbols(SLD_LimitMaxSymbols_JSObject.FieldsInfo);
 }
 
@@ -19,12 +19,12 @@ class JSFieldInfo {
 }
 
 class MaxSymbols {
-    ChekMaxSymbols(fieldsInfo: JSFieldInfo[]): void {
+    public ChekMaxSymbols(fieldsInfo: JSFieldInfo[]): void {
         for (var index = 0; index < fieldsInfo.length; index++) {
-            var fieldname = fieldsInfo[index].Key;
-            var maxchars = fieldsInfo[index].Value;
+            var fieldname: string = fieldsInfo[index].Key;
+            var maxchars: number = fieldsInfo[index].Value;
 
-            var field = ListForm.GetField(fieldname, true);
+            var field: IField = ListForm.GetField(fieldname, true);
 
             if (field.TypedField == null)
                 throw new Error(`Не удалось получить типизированное поле для ${fieldname}`);
@@ -33,7 +33,7 @@ class MaxSymbols {
         }
     }
 
-    GetTypeField(field, fieldName: string, maxChars: number): void {
+    public GetTypeField(field, fieldName: string, maxChars: number): void {
         switch (field.Type) {
             case 'DBFieldText':
                 $(`#${field.ContainerID}`).find(`#${field.TypedField.ContainerID}`).find('.txt_input').attr('maxlength', maxChars);
