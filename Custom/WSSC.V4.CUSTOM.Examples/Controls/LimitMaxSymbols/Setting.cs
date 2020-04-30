@@ -10,20 +10,42 @@ namespace WSSC.V4.DMS.SLD.Controls.LimitMaxSymbols
 	public class Setting
 	{
 		private DBItem _item;
-		private XDocument _xmlDocument;
 		public Setting(DBItem item)
 		{
-			_item = item ?? throw new Exception($"В настройку '{GetType().FullName}' не передана карточка");
-
-			_xmlDocument = _item.Site.ConfigParams.GetXDocument(Consts.ConfigParams.LimitMaxSymbols)
-				?? throw new Exception($"Не удалось получить настройку из константы '{Consts.ConfigParams.LimitMaxSymbols}'");
-
-			XElement listSettings = GetSettingsList(_xmlDocument);
-			IEnumerable<XElement> fields = GetFields(listSettings);
-			FieldsInfo = GetFieldsInfo(fields);
+			_item = item 
+				?? throw new Exception($"В настройку '{GetType().FullName}' не передана карточка");
 		}
 
-		public Dictionary<string, int> FieldsInfo { get; private set; }
+		private bool __init__XmlDocument = false;
+		private XDocument _XmlDocument;
+		private XDocument XmlDocument
+		{
+			get
+			{
+				if (!__init__XmlDocument)
+				{
+					_XmlDocument = _item.Site.ConfigParams.GetXDocument(Consts.ConfigParams.LimitMaxSymbols)
+						?? throw new Exception($"Не удалось получить настройку из константы '{Consts.ConfigParams.LimitMaxSymbols}'");
+					__init__XmlDocument = true;
+				}
+				return _XmlDocument;
+			}
+		}
+
+		private bool __init_ListSettings = false;
+		private XElement _ListSettings;
+		private XElement ListSettings
+		{
+			get
+			{
+				if (!__init_ListSettings)
+				{
+					_ListSettings = this.GetSettingsList(XmlDocument);
+					__init_ListSettings = true;
+				}
+				return _ListSettings;
+			}
+		}
 
 		/// <summary>
 		/// Настройка для текущего листа (определяется по карточке)
@@ -43,6 +65,21 @@ namespace WSSC.V4.DMS.SLD.Controls.LimitMaxSymbols
 				StringComparison.OrdinalIgnoreCase);
 		}
 
+		private bool __init_Fields = false;
+		private IEnumerable<XElement> _Fields;
+		private IEnumerable<XElement> Fields
+		{
+			get
+			{
+				if (!__init_Fields)
+				{
+					_Fields = this.GetFields(ListSettings);
+					__init_FieldsInfo = true;
+				}
+				return _Fields;
+			}
+		}
+
 		/// <summary>
 		/// Xml-узлы с полями для текущего списка
 		/// </summary>
@@ -52,6 +89,25 @@ namespace WSSC.V4.DMS.SLD.Controls.LimitMaxSymbols
 			if (thisFields.Count() == 0)
 				throw new Exception($"В настройке '{Consts.ConfigParams.LimitMaxSymbols}' нет xml-узлов 'Field'");
 			return thisFields;
+		}
+
+
+		private bool __init_FieldsInfo = false;
+		private Dictionary<string, int> _FieldsInfo;
+		/// <summary>
+		/// Название поля : макс символов
+		/// </summary>
+		public Dictionary<string, int> FieldsInfo
+		{
+			get
+			{
+				if (!__init_FieldsInfo)
+				{
+					_FieldsInfo = this.GetFieldsInfo(Fields);
+					__init_FieldsInfo = true;
+				}
+				return _FieldsInfo;
+			}
 		}
 
 		/// <summary>

@@ -15,20 +15,43 @@ namespace WSSC.V4.DMS.FOS.Controls.ClearFieldsByChangeField
 		{
 			_item = item
 				?? throw new Exception("Не удалось получить карточку.");
-			XmlDocument = GetXmlSetting();
-			ListsSetting = GetListsSetting(XmlDocument);
-			CurrentListSetting = GetCurrentListSetting(ListsSetting);
-			FieldAddition = GetFieldAddition(CurrentListSetting);
 		}
 
-		public XDocument XmlDocument { get; }
+
+		private bool __init_XmlDocument = false;
+		private XDocument _XmlDocument;
+		private XDocument XmlDocument 
+		{
+			get 
+			{
+				if (!__init_XmlDocument)
+				{
+					_XmlDocument = this.GetXmlSetting();
+					__init_XmlDocument = true;
+				}
+				return _XmlDocument;
+			}
+		}
 		private XDocument GetXmlSetting()
 		{
 			return _item.Site.ConfigParams.GetXDocument(Consts.ConfigParams.ClearFieldsByChangeField)
 				   ?? throw new Exception($"Не удалось получить настройку '{Consts.ConfigParams.ClearFieldsByChangeField}'");
 		}
 
-		public List<XElement> ListsSetting { get; }
+		private bool __init_ListsSetting = false;
+		private List<XElement> _ListsSetting;
+		private List<XElement> ListsSetting 
+		{ 
+			get
+			{
+				if (!__init_ListsSetting)
+				{
+					_ListsSetting = this.GetListsSetting(XmlDocument);
+					__init_ListsSetting = true;
+				}
+				return _ListsSetting;
+			}
+		}
 		private List<XElement> GetListsSetting(XDocument xDoc)
 		{
 			List<XElement> listSetting = xDoc.Element("Setting")?.Elements("List")?.ToList();
@@ -37,7 +60,20 @@ namespace WSSC.V4.DMS.FOS.Controls.ClearFieldsByChangeField
 			return listSetting;
 		}
 
-		public XElement CurrentListSetting { get; }
+		private bool __init_CurrentListSetting = false;
+		private XElement _CurrentListSetting;
+		private XElement CurrentListSetting 
+		{ 
+			get
+			{
+				if (!__init_CurrentListSetting)
+				{
+					_CurrentListSetting = this.GetCurrentListSetting(ListsSetting);
+					__init_CurrentListSetting = true;
+				}
+				return _CurrentListSetting;
+			}
+		}
 		private XElement GetCurrentListSetting(List<XElement> elements)
 		{
 			IEnumerable<XElement> fields = elements.FirstOrDefault(IsCurrentListSettings)
@@ -61,7 +97,20 @@ namespace WSSC.V4.DMS.FOS.Controls.ClearFieldsByChangeField
 		/// Зависимость полей. Key = ключевое поле, Value[] = поля которые следует очищать
 		/// Не может быть пустой. И не может быть менее 1.
 		/// </summary>
-		public KeyValuePair<string, string[]> FieldAddition { get; }
+		private bool __init_FieldAddition = false;
+		private KeyValuePair<string, string[]> _FieldAddition;
+		public KeyValuePair<string, string[]> FieldAddition 
+		{
+			get
+			{
+				if (!__init_FieldAddition)
+				{
+					_FieldAddition = this.GetFieldAddition(CurrentListSetting);
+					__init_FieldAddition = true;
+				}
+				return _FieldAddition;
+			}			 
+		}
 		private KeyValuePair<string, string[]> GetFieldAddition(XElement element)
 		{
 			string key = element.Attribute("parent")?.Value;

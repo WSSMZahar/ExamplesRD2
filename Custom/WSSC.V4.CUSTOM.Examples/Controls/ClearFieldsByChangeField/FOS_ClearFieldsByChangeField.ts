@@ -15,7 +15,10 @@ function FOS_ClearFieldsByChangeField_Init() {
 
 class FieldValueSeter {
     private _childs: Array<string>;
-
+  
+    /**
+     *  Проставляет значение полей
+     * */
     public SetFieldValue(): void {
         for (var i = 0; i < this._childs.length; i++) {
 
@@ -43,6 +46,9 @@ class FieldValueSeter {
         }
     }
 
+     /**
+      * Проверка на типы полей
+      * */
     public CheckField(): void {
         //не поддерживаемые поля
         var notSupportedFields: string[] = ['MSLField', 'DBFieldMarkup', 'PDField', 'CMField', 'PField', 'DBFieldFiles', 'DBFieldFileLink', 'DBFieldLink', 'WSSC.V4.DMS.Fields.TableItems.TableItemsField'];
